@@ -1,7 +1,10 @@
-site_name: MkLorum
-# Chapter 1 Introuction
+---
+title: "Installation"
+excerpt: "How to Install Arch Linux" # optional
+hidden: true # optional
+---
 
-## Overview 
+# Installation
 
 Opencontour® is mining-based software that provides cost-benefit mine design options and provides foresight into designs that maximize productivity. It uses CAD functionality for open-pit mine planning.
 
