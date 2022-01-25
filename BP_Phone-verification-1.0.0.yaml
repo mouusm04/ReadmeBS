@@ -5,6 +5,7 @@ info:
 servers:
   - url: 'https://test/apexrest'
     description: Mock Server
+    version: "1.0.0"
 paths:
   /phoneVerification:
     put:
