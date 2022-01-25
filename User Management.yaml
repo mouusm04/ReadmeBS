@@ -4,14 +4,14 @@ info:
   description: ''
   version: "1.0.0"
 servers:
-  - url: 'https://test/apexrest'
+  - url: 'https://test/apexrestu'
     description: Mock Server
     
 paths:
   /phoneVerification:
     put:
       tags:
-        - Phone Verification
+        - Phone Verificationqw
       summary: Check Method
       description: This WebService accepts PUT requests with a JSON body and below parameters that are wrapped in reqData object
       requestBody:

@@ -1,128 +1,114 @@
 openapi: 3.0.0
 info:
-  title: User Management
-  description: This section is for User management overview or any other overview
-  version: 1.0.0
+  title: petstore
+  description: ''
+  version: "1.0.0"
 servers:
-  - url: 'https://test/apexrest'
-    description: ''
+  - url: 'https://test/apexrestt'
+    description: Mock Server
+    
 paths:
-  /services/data/:
-    get:
+  /phoneVerificationn:
+    put:
       tags:
-        - User Management
-      summary: View User Preferences
-      description: Specify the fields you want to retrieve in the fields parameter and use the GET method of the resource.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      parameters:
-        - name: version
-          in: path
-          description: Version Number
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
-        - name: id
-          in: path
-          description: 18 Digit Alphanumeric Unique Identifier of the User to limit references in the backend.
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-        - name: fields
-          in: query
-          description: Different fields names
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
+        - Phone Verification
+      summary: Check Method
+      description: This WebService accepts PUT requests with a JSON body and below parameters that are wrapped in reqData object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkmethod'
       responses:
         '200':
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/View'
-              examples:
-                example-1: {}
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/View'
-      security: []
-    patch:
+                $ref: '#/components/schemas/view'
+      security:
+        - Bearer: []
+    post:
       tags:
-        - User Management
-      summary: Update User Preferences
-      description: "Specify the fields you want to update within the body of the request and use the PATCH method of the resource. Refer  <a href=\"https://bp365.sharepoint.com/sites/IdentityAccessManagementIAMHub/SitePages/Consumer_Idp_Service.aspx#service-end-points\">Customer & Consumer Identity</a> for latest version number of these API's"
-      parameters:
-        - name: version
-          in: path
-          description: Version Number
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
-        - name: id
-          in: path
-          description: 18 Digit Alphanumeric Unique Identifier of the User to limit references in the backend.
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
+        - Phone Verification
+      summary: Start Method
+      description: This WebService accepts POST requests with a JSON body and below parameters that are wrapped in reqData object.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateUserPreferences'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/UpdateUserPreferences'
+              $ref: '#/components/schemas/startmethod'
       responses:
         '200':
           description: Successful response
-          content: {}
-      security: []
-    parameters: []
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/view'
+      security:
+        - Bearer: []
 components:
   schemas:
-    View:
-      title: View User Consent
+    view:
+      title: Response
       type: object
       properties:
-        attributes:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Text message sent to +1 123-456-7890
+    startmethod:
+      title: Start Method
+      type: object
+      properties:
+        reqData:
           type: array
           items:
             $ref: '#/components/schemas/attributes'
-        FirstName:
-          type: string
-          example: John
-          description: first name of the customer
-        Email:
-          type: string
-          example: john.smith@example.com
-        Phone:
-          type: integer
-          example: 15417543010
-    UpdateUserPreferences:
-      title: Update User Preferences
-      type: object
-      properties:
-        Phone:
-          type: integer
-          example: 15417543010
-    attributes:
-      title: attribute
-      type: object
-      properties:
-        url:
-          type: string
-          example: /services/data/v48.0/sobjects/User/0050E000000RlEQQA0
-          description: |
-            url
       x-examples:
         example-1: {}
-  securitySchemes: {}
+      description: ''
+    checkmethod:
+      title: Check Method
+      type: object
+      properties:
+        reqData:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/attributes'
+              - required:
+                  - code
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: Verification Code
+                    example: 123
+    attributes:
+      title: reqData
+      required:
+        - countryCode
+        - phoneNumber
+        - sid
+      type: object
+      properties:
+        phoneNumber:
+          type: integer
+          description: Phone Number
+          example: 1234567890
+        countryCode:
+          type: boolean
+          description: Country Code
+          example: false
+        sid:
+          type: string
+          description: Will be provided to you once Twillio account is set up.
+          example: bpmeusa
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
