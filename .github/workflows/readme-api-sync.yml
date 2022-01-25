@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: readmeio/github-readme-sync@v2
         with:
-          readme-oas-key: QDNAOxYHpjBQlrhldipvaVCrFGIlA1A7:61eec39910dd8fc81cc956ec
+          readme-oas-key: QDNAOxYHpjBQlrhldipvaVCrFGIlA1A7:61ef63c00875eadc61dc2ed8
           oas-file-path: './petstore.yaml'
 
            
