@@ -22,7 +22,7 @@ tags:
 - name: "user"
   description: "Operations about user"
   externalDocs:
-    description: "Find out more about our store"
+    description: "Find out more about our storeee"
     url: "http://swagger.io"
 schemes:
 - "https"
